@@ -1,0 +1,27 @@
+pcm.virtio_hw {
+    type hw
+    card 0
+    device 0
+}
+
+pcm.mic_boost {
+    type softvol
+    slave.pcm "plughw:0,0"
+    control {
+        name "Mic Boost"
+        card 0
+    }
+    min_dB -10.0
+    max_dB 24.0
+}
+
+pcm.!default {
+    type asym
+    playback.pcm "plughw:0,0"
+    capture.pcm "plug:mic_boost"
+}
+
+ctl.!default {
+    type hw
+    card 0
+}
